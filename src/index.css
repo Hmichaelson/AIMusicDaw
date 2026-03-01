@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --daw-bg: #1a1a1a;
+    --daw-surface: #242424;
+    --daw-surface-light: #2d2d2d;
+    --daw-surface-lighter: #363636;
+    --daw-border: #3d3d3d;
+    --daw-text: #e0e0e0;
+    --daw-text-muted: #888888;
+    --daw-accent: #4a9eff;
+    --daw-accent-hover: #6bb3ff;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--daw-bg);
+    color: var(--daw-text);
+    overflow: hidden;
+  }
+
+  /* Custom scrollbar for DAW aesthetic */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--daw-surface);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--daw-surface-lighter);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--daw-border);
+  }
+
+  /* Prevent text selection during drag operations */
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+@layer components {
+  /* Button styles */
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-150;
+  }
+
+  .btn-primary {
+    @apply bg-daw-accent text-white hover:bg-daw-accent-hover;
+  }
+
+  .btn-secondary {
+    @apply bg-daw-surface-light text-daw-text hover:bg-daw-surface-lighter;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-daw-text-muted hover:text-daw-text hover:bg-daw-surface-light;
+  }
+
+  .btn-icon {
+    @apply p-2 rounded-md transition-colors duration-150;
+    @apply bg-transparent text-daw-text-muted hover:text-daw-text hover:bg-daw-surface-light;
+  }
+
+  /* Input styles */
+  .input {
+    @apply px-3 py-2 rounded-md bg-daw-surface border border-daw-border;
+    @apply text-daw-text placeholder-daw-text-muted;
+    @apply focus:outline-none focus:ring-2 focus:ring-daw-accent focus:border-transparent;
+  }
+
+  /* Panel styles */
+  .panel {
+    @apply bg-daw-surface border border-daw-border rounded-lg;
+  }
+
+  /* Track color indicator */
+  .track-color {
+    @apply w-1 h-full rounded-l;
+  }
+}
+
+@layer utilities {
+  /* Waveform container */
+  .waveform-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Playhead cursor */
+  .playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #ff4444;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .playhead::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4px;
+    width: 9px;
+    height: 9px;
+    background-color: #ff4444;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+  }
+
+  /* Time ruler marks */
+  .time-marker {
+    position: absolute;
+    top: 0;
+    font-size: 10px;
+    color: var(--daw-text-muted);
+    transform: translateX(-50%);
+  }
+
+  /* Clip styling */
+  .clip {
+    position: absolute;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .clip:active {
+    cursor: grabbing;
+  }
+
+  .clip-selected {
+    box-shadow: 0 0 0 2px var(--daw-accent);
+  }
+}
